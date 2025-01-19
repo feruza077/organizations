@@ -26,10 +26,9 @@ make migrate-seed
 
 make swagger-generate
 
-# Доступ к приложению
-
-Приложение:
-    http://localhost:9999
+# Swagger
+ http://localhost:9999/api/documentation
+ Token: staticToken
 
 PgAdmin (панель управления PostgreSQL):
     http://localhost:9090
@@ -38,7 +37,7 @@ PgAdmin (панель управления PostgreSQL):
 
 # Технологии
 
-    Laravel 8+
+    Laravel
     Docker
     PostgreSQL
     PgAdmin 4
