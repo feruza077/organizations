@@ -1,0 +1,400 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Organizations test API",
+        "description": "Swagger annotations.",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/organizations/building/{buildingId}": {
+            "get": {
+                "tags": [
+                    "Organizations"
+                ],
+                "summary": "Получить список организаций для конкретного здания",
+                "description": "Возвращает все организации, находящиеся в указанном здании с пагинацией.",
+                "operationId": "f8a3d7eacff022f7974b1d75aa945997",
+                "parameters": [
+                    {
+                        "name": "buildingId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "default": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Список организаций",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "current_page": {
+                                            "type": "integer"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer"
+                                                    },
+                                                    "name": {
+                                                        "type": "string"
+                                                    },
+                                                    "building_id": {
+                                                        "type": "integer"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        },
+                                        "per_page": {
+                                            "type": "integer"
+                                        },
+                                        "total": {
+                                            "type": "integer"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Здание не найдено"
+                    }
+                },
+                "security": [
+                    {
+                        "AuthorizationKey": []
+                    }
+                ]
+            }
+        },
+        "/api/organizations/activity/{activityId}": {
+            "get": {
+                "tags": [
+                    "Organizations"
+                ],
+                "summary": "Получить ссписок всех организаций, которые относятся к указанному виду деятельности",
+                "description": "Возвращает список всех организаций, которые относятся к указанному виду деятельности с пагинацией.",
+                "operationId": "07cad9d57dfc721ed39bb5988fa2caad",
+                "parameters": [
+                    {
+                        "name": "activityId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "default": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Список организаций",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "current_page": {
+                                            "type": "integer"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer"
+                                                    },
+                                                    "name": {
+                                                        "type": "string"
+                                                    },
+                                                    "building_id": {
+                                                        "type": "integer"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        },
+                                        "per_page": {
+                                            "type": "integer"
+                                        },
+                                        "total": {
+                                            "type": "integer"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Здание не найдено"
+                    }
+                },
+                "security": [
+                    {
+                        "AuthorizationKey": []
+                    }
+                ]
+            }
+        },
+        "/api/organizations/radius": {
+            "get": {
+                "tags": [
+                    "Organizations"
+                ],
+                "summary": "Получить список организаций в радиусе относительно заданной точки",
+                "description": "Получает список организаций, которые находятся в указанном радиусе относительно заданных координат.",
+                "operationId": "ed947d8f87ed2faad2aaedada106bd62",
+                "parameters": [
+                    {
+                        "name": "latitude",
+                        "in": "query",
+                        "description": "Широта точки",
+                        "required": true,
+                        "schema": {
+                            "type": "number",
+                            "format": "float",
+                            "default": 55.7558
+                        }
+                    },
+                    {
+                        "name": "longitude",
+                        "in": "query",
+                        "description": "Долгота точки",
+                        "required": true,
+                        "schema": {
+                            "type": "number",
+                            "format": "float",
+                            "default": 37.6173
+                        }
+                    },
+                    {
+                        "name": "radius",
+                        "in": "query",
+                        "description": "Радиус в метрах",
+                        "required": true,
+                        "schema": {
+                            "type": "number",
+                            "format": "float"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Список организаций"
+                    },
+                    "400": {
+                        "description": "Ошибка валидации"
+                    },
+                    "500": {
+                        "description": "Внутренняя ошибка сервера"
+                    }
+                },
+                "security": [
+                    {
+                        "AuthorizationKey": []
+                    }
+                ]
+            }
+        },
+        "/api/organizations/boundingBox": {
+            "get": {
+                "tags": [
+                    "Organizations"
+                ],
+                "summary": "Получить список организаций в прямоугольной области",
+                "description": "Получает список организаций, которые находятся в заданном прямоугольной областие относительно заданных координат.",
+                "operationId": "81728db9e6966d057cef1a82b2bab96e",
+                "parameters": [
+                    {
+                        "name": "minLatitude",
+                        "in": "query",
+                        "description": "Долгота точки мин",
+                        "required": true,
+                        "schema": {
+                            "type": "number",
+                            "format": "float",
+                            "default": 55.0084
+                        }
+                    },
+                    {
+                        "name": "minLongitude",
+                        "in": "query",
+                        "description": "Широта точки мин",
+                        "required": true,
+                        "schema": {
+                            "type": "number",
+                            "format": "float",
+                            "default": 30.3351
+                        }
+                    },
+                    {
+                        "name": "maxLatitude",
+                        "in": "query",
+                        "description": "Долгота точки макс",
+                        "required": true,
+                        "schema": {
+                            "type": "number",
+                            "format": "float",
+                            "default": 60.9343
+                        }
+                    },
+                    {
+                        "name": "maxLongitude",
+                        "in": "query",
+                        "description": "Широта точки макс",
+                        "required": true,
+                        "schema": {
+                            "type": "number",
+                            "format": "float",
+                            "default": 82.9357
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Список организаций"
+                    },
+                    "400": {
+                        "description": "Ошибка валидации"
+                    },
+                    "500": {
+                        "description": "Внутренняя ошибка сервера"
+                    }
+                },
+                "security": [
+                    {
+                        "AuthorizationKey": []
+                    }
+                ]
+            }
+        },
+        "/api/organizations/{organizationId}": {
+            "get": {
+                "tags": [
+                    "Organizations"
+                ],
+                "summary": "вывод информации об организации по её идентификатору",
+                "description": "Получает информацию об организации по её идентификатору",
+                "operationId": "e4ed84eaec7711e2a2c626545cb01c40",
+                "parameters": [
+                    {
+                        "name": "organizationId",
+                        "in": "path",
+                        "description": "идентификатор",
+                        "required": true,
+                        "schema": {
+                            "type": "number",
+                            "format": "float",
+                            "default": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Список организаций"
+                    },
+                    "400": {
+                        "description": "Ошибка валидации"
+                    },
+                    "500": {
+                        "description": "Внутренняя ошибка сервера"
+                    }
+                },
+                "security": [
+                    {
+                        "AuthorizationKey": []
+                    }
+                ]
+            }
+        },
+        "/api/organizations/search": {
+            "get": {
+                "tags": [
+                    "Organizations"
+                ],
+                "summary": "поиск организации по виду деятельности или по названию",
+                "description": "Получает информацию об организации",
+                "operationId": "40b8b5635dc20a80567117691e82d2e0",
+                "parameters": [
+                    {
+                        "name": "activity",
+                        "in": "query",
+                        "description": "деятельность",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "format": "float",
+                            "default": "Еда"
+                        }
+                    },
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "организация",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "format": "float"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Список организаций"
+                    },
+                    "400": {
+                        "description": "Ошибка валидации"
+                    },
+                    "500": {
+                        "description": "Внутренняя ошибка сервера"
+                    }
+                },
+                "security": [
+                    {
+                        "AuthorizationKey": []
+                    }
+                ]
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Organizations",
+            "description": "Organizations"
+        }
+    ],
+    "components": {
+        "securitySchemes": {
+            "AuthorizationKey": {
+                "type": "apiKey",
+                "description": "Enter token",
+                "name": "Authorization",
+                "in": "header"
+            }
+        }
+    }
+}
